@@ -1,12 +1,12 @@
 """URL
 from csv
 """
-import requests
 import csv
 import logging
-import pandas as pd
-from bs4 import BeautifulSoup
 
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
 
 #   errors
 logging.basicConfig(filename='error_message.txt',
@@ -37,13 +37,13 @@ try:
                     id = x[find_id + 3:120]
                     data.append([link.get_text(), id, x])
 
-                    with open('data/lista_postanowienie.csv', 'w', encoding='UTF-8', newline='') as file:
+                    with open('data/lista.csv', 'w', encoding='UTF-8', newline='') as file:
                         writer = csv.writer(file)
                         writer.writerow(header)
                         writer.writerows(data)
                         
             # search name in base
-            df = pd.read_csv('data/lista_postanowienie.csv')
+            df = pd.read_csv('data/lista.csv')
             for i in range(len(df.Tytuł)):
                 if name_postano == df.Tytuł[i]:
                     indx = i
