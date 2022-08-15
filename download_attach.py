@@ -17,7 +17,7 @@ logging.basicConfig(filename='data/error_message.txt',
 
 
 try:
-    def download_pdf(link_do_edit, user, password):
+    def download_pdf(link_name_obiect, user, password):
         username = ''
         user_download = fr"C:\Users\{user}\Downloads"
         url = 'url sharepoint list'
@@ -28,14 +28,14 @@ try:
                            auth=HttpNtlmAuth(username, password)
                            )
 
-            response = session.get(link_do_edit)
+            response = session.get(link_name_obiect)
             with open('data/zalacznik.html', 'w', encoding="UTF-8") as f:
                     f.write(response.text)
 
             attach_html = 'data/zalacznik.html'       
             with open(attach_html, 'r', encoding='UTF-8') as response:
                 soup = BeautifulSoup(response, 'html.parser')
-                for i in soup.select('tr[id]'):   #wyświetla wszystkie tytuły
+                for i in soup.select('tr[id]'):   
                     link = i.find('a', href=True)
                     if link is None:
                         continue
