@@ -1,9 +1,8 @@
 import json
-import requests
 import logging
 
+import requests
 from requests_ntlm3 import HttpNtlmAuth
-
 
 #   errors
 logging.basicConfig(filename='data/error_message.txt',

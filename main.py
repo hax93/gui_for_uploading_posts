@@ -1,26 +1,24 @@
-import tkinter as tk
 import json
-import os
 import logging
+import os
 import sys
-import requests
-
-from requests_ntlm3 import HttpNtlmAuth
+import tkinter as tk
 from tkinter import *
 from tkinter import messagebox, ttk
-from gui_post_window2 import *
-from excel_to_pandas import *
-from download_xml import *
+
+import requests
+from requests_ntlm3 import HttpNtlmAuth
+
 from baza_xml import *
-
-
+from download_xml import *
+from excel_to_pandas import *
+from gui_post_window2 import *
 
 logging.basicConfig(filename='error_message.txt',
                     filemode='a+',
                     level=logging.DEBUG,
                     format="%(asctime)s [%(levelname)s] %(message)s"
                     )
-
 
 
 class GuiPost(ttk.Frame):
@@ -52,10 +50,17 @@ class GuiPost(ttk.Frame):
 
         self.password_entry.bind('<Return>', self.login_password_sp)
                 
-        self.refresh_button = Button(self, text='Refresh', font='arial 10 bold', bg='red', command=self.lista_cala)
+        self.refresh_button = Button(self, text='Refresh', 
+                                     font='arial 10 bold', 
+                                     bg='red', 
+                                     command=self.lista_cala
+                                     )
         
-
-        self.select_button_true = Button(self, text='True', font='arial 10 bold', bg='green', command=self.update_tree)
+        self.select_button_true = Button(self, text='True',
+                                         font='arial 10 bold',
+                                         bg='green',
+                                         command=self.update_tree
+                                         )
 
         self.grid()
         
@@ -104,11 +109,15 @@ class GuiPost(ttk.Frame):
         self.entry_password_ftp.bind('<Return>', self.login_password_ftp_disabled)
 
     def login_password_ftp_disabled(self, event):
-        post_login_passw_ftp(self.server_ftp.get(), self.login_ftp.get(), self.password_ftp.get())
+        post_login_passw_ftp(self.server_ftp.get(),
+                             self.login_ftp.get(),
+                             self.password_ftp.get()
+                             )
         self.lista_cala()
 
     def lista_cala(self):
         try:
+            #   comment for open GUI
             #dow_excel(self.login_sp.get(), self.password_sp.get())
             #get_data_xml()
             #self.download_html()
@@ -182,7 +191,10 @@ class GuiPost(ttk.Frame):
     def update_tree(self):
         selected = self.list_all.focus()
         self.list_all.item(selected, text='',
-                                             values=(self.selected_record()[0], self.selected_record()[1], 'True')
+                                             values=(self.selected_record()[0], 
+                                                    self.selected_record()[1], 
+                                                    'True'
+                                                    )
                            )
 
     def treeview_react_select(self, event):

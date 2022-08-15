@@ -1,6 +1,15 @@
 import getpass
+import logging
 import os
 from ftplib import FTP
+
+#   errors
+logging.basicConfig(filename='data/error_message.txt',
+                    filemode='a+',
+                    level=logging.DEBUG,
+                    format="%(asctime)s [%(levelname)s] %(message)s"
+                    )
+
 
 try:
     def connect_ftp(ftp_server, ftp_login, ftp_password,
@@ -33,5 +42,5 @@ try:
 
 
 except Exception as exc:
-    print(exc)
+    logging.error(f"ERROR: {exc}")
     

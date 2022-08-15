@@ -1,7 +1,7 @@
 import logging
-import pandas as pd
 import xml.etree.ElementTree as ET
 
+import pandas as pd
 
 #   errors
 logging.basicConfig(filename='data/error_message.txt',

@@ -1,11 +1,22 @@
+import logging
+
 import requests
 import urllib3
+
 urllib3.disable_warnings()
 
 """Login
 to website with
 panel adm.
 """
+
+#   errors
+logging.basicConfig(filename='data/error_message.txt',
+                    filemode='a+',
+                    level=logging.DEBUG,
+                    format="%(asctime)s [%(levelname)s] %(message)s"
+                    )
+
 
 def linki(final_id, rodzaj):
     #   linki na podstawie rodzaj_linku//komunikat_post
@@ -55,10 +66,12 @@ try:
             find_id = url_id.find('=')
             final_id = url_id[find_id + 1:]
 
-            add_post = session.post(linki(final_id, rodzaj_linku), verify=False, data=data_post,
-                                          headers=headers_func(final_id))
+            add_post = session.post(linki(final_id, rodzaj_linku),
+                                        verify=False, data=data_post,
+                                        headers=headers_func(final_id)
+                                        )
                     
                     
 except Exception as exc:
-    print(exc)
+    logging.error(f"ERROR: {exc}")
     

@@ -1,0 +1,1 @@
+2022-08-15 11:44:50,271 [ERROR] ERROR: can only concatenate tuple (not "int") to tuple

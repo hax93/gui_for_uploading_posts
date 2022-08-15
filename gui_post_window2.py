@@ -1,9 +1,7 @@
 import time
 import tkinter as tk
 import webbrowser
-from datetime import datetime, timedelta
 from tkinter import *
-from tkinter import filedialog as fd
 from tkinter import messagebox, ttk
 
 from bs4 import BeautifulSoup
@@ -11,9 +9,9 @@ from bs4 import BeautifulSoup
 from download_attach import *
 from excel_to_pandas import *
 from ftp_connect import *
-from gui_post import *
 from html_download_idLink import *
 from login_website import uwaga_post
+from main import *
 
 attach_name = []
 attach_name_pdf = []
@@ -48,12 +46,13 @@ def dane_sharepoint(selected):
     dateDO.set(data[2])
     login_computer.get()
     haslo_computer.get()
-    print(name_selected[0])
-    print(user_pass[1])
     
 def get_pdf_strona():
     #   download attachment from sharepoint
-    download_pdf(sharepoint_attachment_link(name_selected[0])[2], user_log[1], user_pass[1])
+    download_pdf(sharepoint_attachment_link(name_selected[0])[2],
+                                            user_log[1], 
+                                            user_pass[1]
+                                            )
     windows_msg('info', 'PDF download')
 
     #   unlock button Public
@@ -80,11 +79,11 @@ def post_login_passw_ftp(server, user, password):
 def komunikat_post():
     title_ogl = title.get()
     lokalizacja = location.get()
-    data_publikacji = dateOD.get()
-    data_zakonczenia = dateDO.get()
+    data_start = dateOD.get()
+    data_end = dateDO.get()
     date_time_now = time.strftime("%Y-%m-%d %H:%M:%S")
     date_now = time.strftime("%Y-%m-%d")
-    rodzaj_linku = location.get()
+    option_link = location.get()
 
     attach_html = 'data/zalacznik.html'
     with open(attach_html, 'r', encoding='UTF-8') as response:
@@ -95,22 +94,24 @@ def komunikat_post():
                 continue
             pdf_name = link.get_text()
             
-    if rodzaj_linku == 'Option1':
+    if option_link == 'Option1':
         ftp_folder = 'ftpfolder1'
                 
-    if rodzaj_linku == 'Option2':
+    if option_link == 'Option2':
         ftp_folder =  'ftpfolder2'
                 
-    if rodzaj_linku == 'Option3':
+    if option_link == 'Option3':
         ftp_folder =  'ftpfolder3'
 
     #   create url 
-    pdf = "url + ftp_folder + pdf_name"
+    pdf = f"url + {ftp_folder} + {pdf_name}"
     if len(pdf) >= 40:
-        connect_ftp(user_server_ftp[0], user_login_ftp[0], user_pass_ftp[0], rodzaj_linku, pdf_name)
+        connect_ftp(user_server_ftp[0], user_login_ftp[0],
+                    user_pass_ftp[0], option_link, pdf_name
+                    )
         uwaga_post(user_log[0], user_pass[0], lokalizacja, title_ogl,
-                   pdf, data_publikacji, data_zakonczenia,
-                   date_time_now, date_now, rodzaj_linku)
+                   pdf, data_start, data_end,
+                   date_time_now, date_now, option_link)
         #   open website with pdf 
         webbrowser.open(pdf)
         windows_msg('info', 'Post Publish')

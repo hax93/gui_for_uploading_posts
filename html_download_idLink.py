@@ -1,12 +1,13 @@
-"""URL
-from csv
-"""
 import csv
 import logging
 
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+
+"""URL
+from csv
+"""
 
 #   errors
 logging.basicConfig(filename='error_message.txt',

@@ -1,12 +1,12 @@
+import logging
+
+import requests
+from bs4 import BeautifulSoup
+from requests_ntlm3 import HttpNtlmAuth
+
 """Download
 Attachment from SP
 """
-
-import requests
-from requests_ntlm3 import HttpNtlmAuth
-import logging
-from bs4 import BeautifulSoup
-
 
 #   errors
 logging.basicConfig(filename='data/error_message.txt',
